@@ -50,7 +50,7 @@ if [[ $(netstat -tlpn | grep -w 9001 | wc -l) -ne 0 ]]; then
 fi
 
 # Download MinIO binary
-wget https://download.zhuanma.org/moeapp/minio/minio -P /usr/local/bin/
+wget https://dl.min.io/server/minio/release/linux-amd64/minio -P /usr/local/bin/
 
 # Make it executable
 chmod +x /usr/local/bin/minio
