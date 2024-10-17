@@ -32,9 +32,6 @@ if [ -z "$1" ]; then
     exit 1
 fi
 
-# AccessKey และ SecretKey สำหรับ MinIO
-AccessKey="abcdef1234"
-SecretKey="abcdef5678"
 
 # ตรวจสอบ OS
 check_os
@@ -67,11 +64,11 @@ Wants=network-online.target
 After=network-online.target
 
 [Service]
-User=$USER
-Group=$USER
-ExecStart=/usr/local/bin/minio server $1 --config-dir /etc/minio --address ${HOSTIP}:9000 --console-address :9001
-Restart=always
-LimitNOFILE=65536
+Type=simple
+ExecStart=/usr/local/bin/minio server "${1}" --console-address ":9001"
+Environment=MINIO_ROOT_USER=${AccessKey} MINIO_ROOT_PASSWORD=${SecretKey}
+PIDFile=/var/run/minio.pid
+LimitNOFILE=65535
 
 [Install]
 WantedBy=multi-user.target
